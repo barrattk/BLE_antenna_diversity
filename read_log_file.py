@@ -17,7 +17,7 @@ def find_unique_id_number(file_path, keyword):
 
 def strip_off_extra(timestamp):
     ts = timestamp.strip("[']")
-    ts = int(ts)
+    ts = float(ts)
     # print(ts)
     return ts
 
@@ -28,7 +28,8 @@ def filter_log_file(file_path, keyword):
     ant_num = []
     with open(file_path, 'r') as file:
         for line in file:
-            if keyword in line:
+            if keyword in line and 'Err' not in line:
+            #if keyword and not 'Err' in line:
                 temp = line.split()
                 print(temp)
                 ts.append(strip_off_extra(temp[0]))
@@ -102,8 +103,8 @@ log_file = options.filename[0]
 search_keyword = options.keyword[0]
 
 ids = find_unique_id_number(log_file, search_keyword)
-# print(ids)
-
+print(ids)
+input("Press to continue...")
 # Info list has a seperate entry (member) for each tag ID
 info = []
 for i, id in enumerate(ids):
