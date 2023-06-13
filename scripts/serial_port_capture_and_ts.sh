@@ -21,7 +21,8 @@ if [[ $answer =~ ^[Yy]$ ]]; then
     # femtocom /dev/ttyUSB0 230400 | ts '[%Y-%m-%d %H:%M:%S]' | tee ./output.txt
     #
     # Timestamp as the number of seconds since the Epoch
-    femtocom /dev/ttyUSB0 230400 | ts '[%.s]' | tee $outfile
+    femtocom /dev/ttyACM0 230400 | ts '[%.s]' | tee $outfile
+    # femtocom /dev/ttyUSB0 230400 | ts '[%.s]' | tee $outfile
 
 else
   echo "Exiting the script."

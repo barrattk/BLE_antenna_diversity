@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import argparse
+from pathlib import Path
 
 def find_unique_id_number(file_path, keyword):
     unique_ids = set()
@@ -47,10 +48,11 @@ def plot_all_antenna(all_info):
         ts_start = d['ts'][0]
 
         ts = np.array(d['ts'][:]) - ts_start
-        plt.figure()
+        fig = plt.figure()
         plt.plot(ts, d['RSSI'])
         plt.xlabel('Time(s)')
         plt.ylabel('RSSI(dB)')
+        return fig
 
 
 def plot_antenna(tag_info):
@@ -63,7 +65,7 @@ def plot_antenna(tag_info):
                 rssi[n].append(tag_info['RSSI'][i])
 
     print(rssi)
-    plt.figure()
+    fig = plt.figure()
     for n in range(0, 4):
         plt.plot(rssi[n], label="Ant {}".format(n))
 
@@ -71,6 +73,7 @@ def plot_antenna(tag_info):
     plt.xlabel('Time(s)')
     plt.ylabel('RSSI(dB)')
     plt.legend()
+    return fig
 
 # -------------------------------------------------------------
 # Start
@@ -97,7 +100,8 @@ print(options)
 #log_file = './log_example/friday_test.txt'
 #log_file = './log_files/test_1.txt'
 log_file = options.filename[0]
-
+print(log_file)
+#input("Press the any key...")
 #search_keyword = 'BLE'
 #search_keyword = '72308628870207035'
 search_keyword = options.keyword[0]
@@ -114,7 +118,10 @@ for i, id in enumerate(ids):
 plot_all_antenna(info)
 
 selected_info_idx = 0
-plot_antenna(info[selected_info_idx])
+fig = plot_antenna(info[selected_info_idx])
 
-plt.show()
+filename = Path(log_file)
+lf = filename.with_suffix('.png')
+fig.savefig(lf)
+# plt.show()
 
