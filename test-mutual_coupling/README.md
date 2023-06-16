@@ -1,0 +1,1 @@
+Mutual_coupling.png shows that the static anchor is in a null (fade) when the other anchor is 30cm away. However as this mobile anchor is moved closer it changes the electromagnetic enviroment and the static anchor is no longer in a fade.

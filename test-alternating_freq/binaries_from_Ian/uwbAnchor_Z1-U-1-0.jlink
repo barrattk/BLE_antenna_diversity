@@ -1,0 +1,25 @@
+exitonerror 1
+device NRF52832_XXAA
+si 1
+speed 500
+halt
+savebin sequence-number.bin 0x7e000 0x01000
+savebin permanent-settings.bin 0x7f000 0x01000
+w4 4001e504 2
+w4 4001e50c 1
+mem8 10001000 20
+w4 4001e504 3
+w4 10001014 0003e000
+loadbin uwbAnchor_Z1-U-1-0-bootloader.bin 0x00000000
+loadbin uwbAnchor_Z1-U-1-0.bin 0x00001000
+loadbin permanent-settings.bin 0x7f000
+loadbin sequence-number.bin 0x7e000
+mem8 10000060 8
+mem8 10000080 10
+mem8 100000a4 8
+mem8 10000090 10
+r 2
+w4 40000544 1
+r 2
+qc
+exit
